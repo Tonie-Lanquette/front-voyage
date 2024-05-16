@@ -1,65 +1,36 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-// const Travel = () => {
-//   const [travelsList, setTravelsList] = useState([])
-//   const [categoryList, setCategoryList] = useState([])
-//   const { push } = useRouter()
+export const Carrousel = () => {
 
-//   useEffect(() => {
+  const [imagesList, setImagesList] = useState([]);
 
-      
-//       axios.get("https://127.0.0.1:8000/api/av/travel/index").then((res: any) => {
-//       setTravelsList(res.data);
-//       setCategoryList(res.data);
-//       console.log(travelsList);
-//       console.log(res.data);
-      
-//       });     
-       
-//     }, [])
+     useEffect(() => {
+    const getImage = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:8000/api/av/travels");
+        setImagesList(res.data);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
 
-
-const carroussel = () => {
-const [imageList, setImageList] =useState()
-
-useEffect(() => {
-function getImage(){
-        return axios
-        .get('http://127.0.0.1:8000/api/av/travel/image').then((res: any) => {
-                setImageList(res.data);
-                console.log(imageList);
-            });
-    }, [])
+    getImage();
+  }, []);
 
   return (
-    <div>
-        <div id="default-carousel" className="relative w-full" data-carousel="slide">
+    <div className='h-screen'>
+    <div className='h-5/6'>
+        <div id="default-carousel" className="relative h-full" data-carousel="slide">
             {/* Carousel wrapper  */}
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-
-
-                
-               {/*  Item 1 
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-1.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
+            <div className="relative overflow-hidden h-full">
+                <div className="flex duration-700 ease-in-out  " data-carousel-item>
+                    { imagesList && imagesList.map((travel: any) =>{
+                        return (
+                            <img key={travel.id} src={travel.picture} alt="images de voyage" />
+                        )}
+                    )}
                 </div>
-                Item 2  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-2.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 3  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-3.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 4  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-4.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 5  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-5.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>*/}
             </div>
             {/* Slider indicators */}
             <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
@@ -88,5 +59,6 @@ function getImage(){
             </button>
         </div>
     </div>
+</div>
   )
 }

@@ -4,8 +4,7 @@ import React from 'react'
 export const NavBarre = () => {
      const { push } = useRouter()
   return (
-    <div >
-        <div className="relative flex w-full flex-wrap items-center justify-between bg-zinc-50 py-2 px-10 dark:bg-neutral-700 lg:py-4">
+        <div className="sticky top-0 z-10 flex w-full flex-wrap items-center justify-between bg-zinc-50 py-2 px-10 dark:bg-zinc-700 lg:py-4 shadow-md">
             <div className="flex flex-row w-full items-center justify-between px-3">
                 <div>
                     <img className='h-10 w-10' src="/tokenlogo.png" alt="Logo de l'agence de voyage" />
@@ -29,8 +28,7 @@ export const NavBarre = () => {
                 </div>
                 
             </div>
-        </div>
-    </div>
+        </div>  
   )
 }
 

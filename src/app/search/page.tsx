@@ -1,14 +1,16 @@
 "use client"
 import React from 'react'
 import { NavBarre } from '../Components/navBarre'
+import { Footer } from '../Components/footer'
 
 const page = () => {
 
     
   return (
-    <div className='w-full min-h-screen bg-green-50 dark:bg-neutral-800'>
+    <div className='w-full min-h-screen bg-zinc-100 dark:bg-zinc-800'>
         <NavBarre />
         Search
+        <Footer />
     </div>
   )
 }

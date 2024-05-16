@@ -1,65 +1,42 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-// const Travel = () => {
-//   const [travelsList, setTravelsList] = useState([])
-//   const [categoryList, setCategoryList] = useState([])
-//   const { push } = useRouter()
+export const Carrousel = () => {
 
-//   useEffect(() => {
-
-      
-//       axios.get("https://127.0.0.1:8000/api/av/travel/index").then((res: any) => {
-//       setTravelsList(res.data);
-//       setCategoryList(res.data);
-//       console.log(travelsList);
-//       console.log(res.data);
-      
-//       });     
-       
-//     }, [])
+  const [imagesList, setImagesList] = useState([])
+ 
 
 
-const carroussel = () => {
-const [imageList, setImageList] =useState()
 
-useEffect(() => {
-function getImage(){
-        return axios
-        .get('http://127.0.0.1:8000/api/av/travel/image').then((res: any) => {
-                setImageList(res.data);
-                console.log(imageList);
-            });
-    }, [])
+     useEffect(() => {
+    const getImage = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:8000/api/av/travels");
+        setImagesList(res.data);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    getImage();
+  }, []);
 
   return (
-    <div>
-        <div id="default-carousel" className="relative w-full" data-carousel="slide">
+    <div className='h-screen'>
+        <div id="default-carousel" className="relative w-full min-h-screen " data-carousel="slide">
             {/* Carousel wrapper  */}
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-
-
+            <div className="relative overflow-hidden ">
+                <div className="flex duration-700 ease-in-out  " data-carousel-item>
+                    { imagesList && imagesList.map((travel: any) =>{
+                        return (
+                        <div key={travel.id}>
+                            <img className='w-full ' src={travel.picture} alt="images de voyage" />
+                        </div>
+                        
+                        )}
+                    )}
+                </div>
                 
-               {/*  Item 1 
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-1.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                Item 2  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-2.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 3  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-3.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 4  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-4.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>
-                {/* Item 5  
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-5.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-                </div>*/}
             </div>
             {/* Slider indicators */}
             <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">

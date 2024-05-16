@@ -30,7 +30,7 @@ function getImage(){
                 setImageList(res.data);
                 console.log(imageList);
             });
-    }, [])
+    }, []) 
 
   return (
     <div>
